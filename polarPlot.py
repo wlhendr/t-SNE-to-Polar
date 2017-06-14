@@ -46,3 +46,5 @@ tsneDataXY = zip(vis_x, vis_y)      #redundant
 tsneDistanceMatrix = distance.cdist(tsneDataXY, tsneDataXY, 'euclidean')
 
 tsdm = pdist(tsneDataXY)
+
+#test update
