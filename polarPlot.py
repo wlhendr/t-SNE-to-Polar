@@ -24,3 +24,25 @@ def polarToCartesian(Tuple):
 
 #read in full set of data
 data = pd.read_csv("data.csv")
+
+
+#y_color is for colorcoding the individual points based on genus/phylum
+colors = data.HEXcolor
+
+#filter out metaData
+x_data = data.filter(regex= 'abundanc')
+x_data = np.asarray(x_data).astype('float64')
+x_data = x_data.reshape((x_data.shape[0], -1))
+
+#run tsne on data
+vis_data = bh_sne(x_data, perplexity = 30)
+
+#seperate into the x and y values to plot 2D
+vis_x = vis_data[:, 0]
+vis_y = vis_data[:, 1]
+
+#compute distance matrix to use as "correct"
+tsneDataXY = zip(vis_x, vis_y)      #redundant
+tsneDistanceMatrix = distance.cdist(tsneDataXY, tsneDataXY, 'euclidean')
+
+tsdm = pdist(tsneDataXY)
